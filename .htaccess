@@ -1,0 +1,18 @@
+RewriteEngine On
+RewriteBase /nabeghe/
+
+# Redirect to remove .php extension
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+
+# Handle requests without .php extension
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ $1.php [L]
+
+# Custom rule for course-detail
+RewriteRule ^course-detail/([0-9]+)/?$ course-detail.php?id=$1 [QSA,NC,L]
+
+# Redirect to SEO-friendly URL
+RewriteRule ^course/([0-9]+)/([^/]+)$ course-detail.php?id=$1&title=$2 [QSA,NC,L]
